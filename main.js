@@ -1,12 +1,10 @@
-class Persona{
+class Animal{
     nombre
     edad
-    sexo
-    constructor({nombre,edad,sexo}){
+    constructor({nombre,edad}){
 
         this.nombre=nombre;
         this.edad=edad;
-        this.sexo=sexo;
     }
 
     get getNombre(){
@@ -21,54 +19,41 @@ class Persona{
         get getEdad(){
             return this.edad;
         }
-     saludar(){
-        /**imprime en html el saludo con el nombre de la persona */
-        return `Hola soy ${this.nombre}  ` 
+     hacerSonido(){
+        /**imprime en html su sonido */
+        return `guau guau ` 
     }
 
-    static esMayorDeEdad(edad){
-
-        if (edad >18){
-            return `es mayor de edad`
-        }
-        else{
-            return `no es mayor de edad`
-        }
-
-    }
 }
 
-let persona1= new Persona({nombre:"jose",edad:19,sexo:"masculino"});
-console.log(persona1);
+let animal1= new Animal({nombre:"lupe",edad:2});
+console.log(animal1);
 
-console.log(persona1.saludar())
+console.log(animal1.hacerSonido())
 
-class Estudiante extends Persona{
-    carrera
-    constructor({nombre,edad,sexo,carrera}){
-        super({nombre,edad,sexo})
-        this.carrera=carrera;
+class Perro extends Animal{
+    raza
+    constructor({nombre,edad,raza}){
+        super({nombre,edad})
+        this.raza=raza;
     }
 
-    get getCarrera(){
-        return this.carrera;
+    get getRaza(){
+        return this.raza;
         }
     
-    set setCarrera(carrera){
-        this.carrera=carrera;}
+    set setRaza(raza){
+        this.raza=raza;}
 
-     estudiar(){
+     moverCola(){
         /** imprime en html la carrera que esta estudiando*/
-        return `<p>estudio la carrera: ${this.carrera}<p>`
+        return `<p>El perro ${this.nombre} esta moviendo la cola<p>`
     }
 
 
 }
 
-let estudiante1=new Estudiante({carrera:"sistemas"});
 
-console.log(estudiante1.estudiar());
-console.log(Estudiante.esMayorDeEdad(persona1.getEdad));
 
 
 
@@ -77,16 +62,16 @@ console.log(Estudiante.esMayorDeEdad(persona1.getEdad));
      formulario.addEventListener("submit", (e) => {
      e.preventDefault()
      let data = Object.fromEntries(new FormData(e.target))
-     const persona=new Persona(data)
-     persona.saludar();
-     document.getElementById("x").innerHTML=`<p>${persona.saludar()}</p>`;
+     const animal=new Animal(data)
+     //Animal.hacerSonido();
+     document.getElementById("x").innerHTML=`<p>${animal.hacerSonido()}</p>`;
      formulario.reset();   
-      const carrera = data.carrera;
-     console.log(carrera,"m");
-    const estu = new Estudiante({ nombre: persona.nombre, carrera });
-    document.getElementById("est").innerHTML=estu.estudiar();
+      const raza = data.raza;
+     console.log(raza,"m");
+    const perr = new Perro({ nombre: animal.nombre, raza });
+    document.getElementById("est").innerHTML=perr.hacerSonido();
     console.log(data,"no   ");
     
-    const esMayorDeEdad= Persona.esMayorDeEdad(persona1.edad);
-    document.querySelector('#mayor').innerHTML = `<p>La Persona  1: ${persona1.nombre} es ${esMayorDeEdad} ya que tiene ${persona1.getEdad} años.</p>`;
+     //const moverCola = Perro.moverCola();
+    document.querySelector('#mayor').innerHTML = perr.moverCola();;
  })
