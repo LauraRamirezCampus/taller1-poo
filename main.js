@@ -29,16 +29,16 @@ class Persona{
     static esMayorDeEdad(edad){
 
         if (edad >18){
-            return true
+            return `es mayor de edad`
         }
         else{
-            return false
+            return `no es mayor de edad`
         }
 
     }
 }
 
-let persona1= new Persona({nombre:"laura",edad:19,sexo:"Femenino"});
+let persona1= new Persona({nombre:"jose",edad:19,sexo:"masculino"});
 console.log(persona1);
 
 console.log(persona1.saludar())
@@ -47,39 +47,46 @@ class Estudiante extends Persona{
     carrera
     constructor({nombre,edad,sexo,carrera}){
         super({nombre,edad,sexo})
+        this.carrera=carrera;
     }
 
     get getCarrera(){
         return this.carrera;
         }
     
-    set setCarrera(carre){
-        this.carrera=carre;}
+    set setCarrera(carrera){
+        this.carrera=carrera;}
 
      estudiar(){
         /** imprime en html la carrera que esta estudiando*/
-        return document.getElementById("x").innerHTML=`<p>estudio la carrera: ${this.carrera}<p>`
+        return `<p>estudio la carrera: ${this.carrera}<p>`
     }
 
 
 }
 
-let estudiante1=new Estudiante({carrera:"tt"});
-estudiante1.setCarrera="i";
+let estudiante1=new Estudiante({carrera:"sistemas"});
+
 console.log(estudiante1.estudiar());
 console.log(Estudiante.esMayorDeEdad(persona1.getEdad));
 
-function n(){
- let acumular = [];
 
- let formulario = document.querySelector("#formu");
+
+
+ let formulario = document.getElementById("formu");
      formulario.addEventListener("submit", (e) => {
      e.preventDefault()
-     let obtener = Object.fromEntries(new FormData(e.target))
-     acumular.unshift(obtener)   
+     let data = Object.fromEntries(new FormData(e.target))
+     const persona=new Persona(data)
+     persona.saludar();
+     document.getElementById("x").innerHTML=`<p>${persona.saludar()}</p>`;
      formulario.reset();   
-     const obj = acumular;
-     console.log(acumular,"no   ");
-     //console.log(obj.codigo, typeof(acumular.at(-1)))
-     console.log();
- })}
+      const carrera = data.carrera;
+     console.log(carrera,"m");
+    const estu = new Estudiante({ nombre: persona.nombre, carrera });
+    document.getElementById("est").innerHTML=estu.estudiar();
+    console.log(data,"no   ");
+    
+    const esMayorDeEdad= Persona.esMayorDeEdad(persona1.edad);
+    document.querySelector('#mayor').innerHTML = `<p>La Persona  1: ${persona1.nombre} es ${esMayorDeEdad} ya que tiene ${persona1.getEdad} años.</p>`;
+ })
